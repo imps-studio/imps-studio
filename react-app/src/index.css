@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body { background: #0C0E12; color: #fff; -webkit-font-smoothing: antialiased; }
+
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.status-dot { animation: pulse-dot 2s infinite; }
+
+/* Strike-through for "whatever" */
+.strike { position: relative; color: #5B626F; }
+.strike::after { content:""; position:absolute; left:-4%; right:-4%; top:52%; height:6px; background:#B83A3A; transform:rotate(-2deg); }
