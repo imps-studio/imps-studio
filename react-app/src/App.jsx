@@ -20,7 +20,11 @@ export default function App() {
       <Process />
       <About />
       <Quote />
-      <CTA />
+      <CTA
+        heading={<>Got a thing<br />that needs building?</>}
+        secondaryLabel="view more work"
+        secondaryHref="/work"
+      />
       <Footer />
     </div>
   );

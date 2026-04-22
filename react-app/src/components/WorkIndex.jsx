@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './Nav.jsx';
 import Container from './Container.jsx';
+import CTA from './CTA.jsx';
 import MinimalFooter from './MinimalFooter.jsx';
 import { FOUNDING_YEAR, getCategory } from '../data/constants.js';
 import PROJECTS, { liveCount, disciplineCount } from '../data/projects.js';
@@ -282,35 +283,11 @@ export default function WorkIndex() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-20 md:py-[120px] border-t border-ink-700 bg-imps-red text-white">
-        <Container>
-          <h2
-            className="font-sans font-extrabold tracking-tightest leading-[0.95] m-0 mb-8 sm:mb-10 max-w-[1100px]"
-            style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}
-          >
-            Got something that
-            <br />
-            belongs on this list?
-          </h2>
-          <p className="font-sans text-[15px] sm:text-[17px] text-white/85 max-w-[580px] mb-7 sm:mb-10">
-            We take on a handful of projects a year. Drop us a line &mdash; we'll tell you honestly whether we're the right team.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="mailto:hello@imps.studio"
-              className="inline-block px-7 py-4 font-mono text-[13px] tracking-[0.1em] uppercase border-0 rounded-sm bg-ink-900 text-white hover:bg-white hover:text-imps-red transition-colors text-center no-underline"
-            >
-              start a project &#8594;
-            </a>
-            <a
-              href="/#process"
-              className="inline-block px-7 py-4 font-mono text-[13px] tracking-[0.1em] uppercase rounded-sm bg-transparent text-white border border-white/30 hover:border-white transition-colors text-center no-underline"
-            >
-              our process
-            </a>
-          </div>
-        </Container>
-      </section>
+      <CTA
+        heading={<>Got something that<br />belongs on this list?</>}
+        secondaryLabel="our process"
+        secondaryHref="/#process"
+      />
 
       <MinimalFooter label="WORK" />
     </div>
