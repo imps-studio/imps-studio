@@ -6,6 +6,7 @@ html, body { margin: 0; padding: 0; overflow-x: hidden; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .status-dot { animation: none; }
   .breathe { animation: none; }
   .blink-cursor { animation: none; }
 }

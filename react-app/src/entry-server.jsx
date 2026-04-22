@@ -1,12 +1,17 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from './App.jsx';
+import { StaticRouter } from 'react-router';
+import AppRouter from './AppRouter.jsx';
 import NotFound from './NotFound.jsx';
 
-export function render() {
+export { default as PROJECTS } from './data/projects.js';
+
+export function render(url = '/') {
   return renderToString(
     <React.StrictMode>
-      <App />
+      <StaticRouter location={url}>
+        <AppRouter />
+      </StaticRouter>
     </React.StrictMode>
   );
 }

@@ -1,11 +1,14 @@
 import React from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './AppRouter.jsx';
 import './index.css';
 
 hydrateRoot(
   document.getElementById('root'),
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   </React.StrictMode>
 );
