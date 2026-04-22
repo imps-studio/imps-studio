@@ -1,9 +1,10 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Container from './Container.jsx';
 import Nav from './Nav.jsx';
 import MinimalFooter from './MinimalFooter.jsx';
 import { getProject, getAdjacent } from '../data/projects.js';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 import NotFound from '../NotFound.jsx';
 
 const SHOT_STYLES = {
@@ -56,9 +57,7 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const p = getProject(slug);
 
-  useEffect(() => {
-    if (p) document.title = `${p.name} \u2014 IMPS Studio`;
-  }, [slug, p]);
+  useDocumentTitle(p?.name);
 
   if (!p) return <NotFound />;
 
@@ -66,10 +65,8 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-ink-900 text-white font-mono">
-      {/* 1 — Nav */}
       <Nav />
 
-      {/* 2 — Breadcrumb */}
       <nav aria-label="Breadcrumb" className="border-b border-ink-700">
         <Container>
           <ol className="flex items-center gap-2.5 py-[18px] list-none m-0 p-0 text-[11px] tracking-[0.14em] uppercase text-ink-400">
@@ -82,7 +79,6 @@ export default function ProjectDetail() {
         </Container>
       </nav>
 
-      {/* 3 — Hero */}
       <section className="pt-12 pb-8 sm:pt-[72px] sm:pb-14">
         <Container>
           <div className="text-[11px] text-imps-red tracking-[0.18em] mb-8">
@@ -115,7 +111,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 4 — Key Art */}
       <section className="pt-3 pb-14 sm:pt-6 sm:pb-24">
         <Container>
           <div
@@ -139,7 +134,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 5 — Overview */}
       <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
         <Container>
           <SectHead num="01" label="OVERVIEW" right={p.sectionMeta.overview} />
@@ -163,7 +157,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 6 — Screens */}
       <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
         <Container>
           <SectHead num="02" label="SCREENS" right={p.sectionMeta.screens} />
@@ -196,7 +189,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 7 — Approach (Challenge + Solution) */}
       <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
         <Container>
           <SectHead num="03" label="APPROACH" right={p.sectionMeta.approach} />
@@ -224,7 +216,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 8 — Timeline */}
       <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
         <Container>
           <SectHead num="04" label="TIMELINE" right={p.sectionMeta.timeline} />
@@ -245,7 +236,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 9 — Results */}
       <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
         <Container>
           <SectHead num="05" label="RESULTS" right={p.sectionMeta.results} />
@@ -264,7 +254,6 @@ export default function ProjectDetail() {
         </Container>
       </section>
 
-      {/* 10 — Pull Quote */}
       {p.quote && (
         <section className="py-14 sm:py-[72px] md:py-24 border-t border-ink-700">
           <Container>
@@ -284,7 +273,6 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      {/* 11 — Next / Prev */}
       {(prevProject || nextProject) && (
         <section className="border-t border-ink-700 bg-ink-900">
           <Container>

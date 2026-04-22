@@ -1,9 +1,11 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './Nav.jsx';
 import Container from './Container.jsx';
 import MinimalFooter from './MinimalFooter.jsx';
-import PROJECTS, { FOUNDING_YEAR, getCategory, liveCount, disciplineCount } from '../data/projects.js';
+import { FOUNDING_YEAR, getCategory } from '../data/constants.js';
+import PROJECTS, { liveCount, disciplineCount } from '../data/projects.js';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 const CATEGORIES = ['All', 'Games', 'Apps', 'Web', 'Tools'];
 
@@ -11,11 +13,8 @@ export default function WorkIndex() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [sortDir, setSortDir] = useState('newest');
 
-  useEffect(() => {
-    document.title = 'Work \u2014 IMPS Studio';
-  }, []);
+  useDocumentTitle('Work');
 
-  // Assign chronological numbers (oldest = #01)
   const numbered = useMemo(() => {
     const chronological = [...PROJECTS].sort((a, b) => {
       if (a.year !== b.year) return a.year - b.year;
@@ -24,7 +23,6 @@ export default function WorkIndex() {
     return chronological.map((p, i) => ({ ...p, number: i + 1 }));
   }, []);
 
-  // Sort
   const sorted = useMemo(() => {
     const list = [...numbered];
     list.sort((a, b) =>
@@ -33,13 +31,11 @@ export default function WorkIndex() {
     return list;
   }, [numbered, sortDir]);
 
-  // Filter
   const filtered = useMemo(() => {
     if (activeFilter === 'All') return sorted;
     return sorted.filter((p) => getCategory(p.kind) === activeFilter);
   }, [sorted, activeFilter]);
 
-  // Group by year
   const groups = useMemo(() => {
     const map = new Map();
     filtered.forEach((p) => {
@@ -49,7 +45,6 @@ export default function WorkIndex() {
     return [...map.entries()];
   }, [filtered]);
 
-  // Category counts
   const counts = useMemo(() => {
     const c = { All: PROJECTS.length };
     CATEGORIES.slice(1).forEach((cat) => {
@@ -66,7 +61,6 @@ export default function WorkIndex() {
     <div className="min-h-screen bg-ink-900 text-white">
       <Nav />
 
-      {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="border-b border-ink-700">
         <Container>
           <ol className="flex items-center gap-2.5 py-[18px] list-none m-0 p-0 text-[11px] tracking-[0.14em] uppercase font-mono">
@@ -85,7 +79,6 @@ export default function WorkIndex() {
         </Container>
       </nav>
 
-      {/* Hero */}
       <section className="pt-12 pb-8 sm:pt-[72px] sm:pb-14">
         <Container>
           <div className="text-[10px] sm:text-[11px] text-imps-red tracking-[0.18em] font-mono mb-6 sm:mb-10">
@@ -134,7 +127,6 @@ export default function WorkIndex() {
         </Container>
       </section>
 
-      {/* Filter bar */}
       <div className="bg-ink-800 border-y border-ink-700">
         <Container className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 py-3">
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
@@ -181,10 +173,8 @@ export default function WorkIndex() {
         </Container>
       </div>
 
-      {/* Index rows */}
       <section className="py-10 sm:py-14 md:py-20">
         <Container>
-          {/* Column headers — desktop only */}
           <div
             className="hidden sm:grid gap-x-4 text-[10px] font-mono tracking-[0.14em] uppercase text-ink-500 mb-6 pb-3 border-b border-ink-700 sm:grid-cols-[64px_1fr_120px_140px_28px] lg:grid-cols-[64px_1fr_120px_140px_200px_28px]"
           >
@@ -198,7 +188,6 @@ export default function WorkIndex() {
 
           {groups.map(([year, projects], gi) => (
             <div key={year} className={gi === 0 ? 'mb-4' : 'mt-10 mb-4'}>
-              {/* Year heading */}
               <div className="flex items-center gap-4 mb-3">
                 <h3 className="font-sans font-extrabold text-white m-0 text-[24px] sm:text-[44px] leading-none whitespace-nowrap">
                   {year}
@@ -209,7 +198,6 @@ export default function WorkIndex() {
                 <div className="flex-1 h-px bg-ink-700" />
               </div>
 
-              {/* Rows */}
               {projects.map((p) => {
                 const isArchived = p.year === FOUNDING_YEAR;
                 return (
@@ -220,7 +208,6 @@ export default function WorkIndex() {
                     aria-label={`${p.name} \u2014 ${p.kind}, ${p.year}`}
                     style={{ color: 'inherit', textDecoration: 'none' }}
                   >
-                    {/* Desktop + tablet row */}
                     <div
                       className="hidden sm:grid gap-x-4 items-center py-3.5 px-2 -mx-2 rounded-sm group-hover:bg-ink-800 transition-colors sm:grid-cols-[64px_1fr_120px_140px_28px] lg:grid-cols-[64px_1fr_120px_140px_200px_28px]"
                     >
@@ -265,7 +252,6 @@ export default function WorkIndex() {
                       </div>
                     </div>
 
-                    {/* Mobile row */}
                     <div className="sm:hidden flex items-center justify-between py-3.5 px-2 -mx-2 rounded-sm group-hover:bg-ink-800 transition-colors">
                       <div className="min-w-0">
                         <div
@@ -296,7 +282,6 @@ export default function WorkIndex() {
         </Container>
       </section>
 
-      {/* CTA */}
       <section className="py-16 sm:py-20 md:py-[120px] border-t border-ink-700 bg-imps-red text-white">
         <Container>
           <h2

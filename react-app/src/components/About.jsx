@@ -1,5 +1,6 @@
 import Container from './Container.jsx';
-import PROJECTS, { FOUNDING_YEAR } from '../data/projects.js';
+import { FOUNDING_YEAR } from '../data/constants.js';
+import PROJECTS from '../data/projects.js';
 
 const FACTS = [
   { value: '04', label: 'PEOPLE ON THE TEAM' },

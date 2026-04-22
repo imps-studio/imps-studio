@@ -7,8 +7,10 @@ import About from './components/About.jsx';
 import Quote from './components/Quote.jsx';
 import CTA from './components/CTA.jsx';
 import Footer from './components/Footer.jsx';
+import useDocumentTitle from './hooks/useDocumentTitle.js';
 
 export default function App() {
+  useDocumentTitle();
   return (
     <div className="min-h-screen bg-ink-900 text-white">
       <Nav />

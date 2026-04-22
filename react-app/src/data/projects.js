@@ -1,3 +1,5 @@
+import { getCategory } from './constants.js';
+
 function createStub(slug, name, year, kind, colors, { indexTagline = '', stack = '', featured = false, card = null, live = true } = {}) {
   return {
     slug, name, year, kind, indexTagline, stack, featured, card, live,
@@ -54,7 +56,6 @@ function createStub(slug, name, year, kind, colors, { indexTagline = '', stack =
 }
 
 const PROJECTS = [
-  // ── 2026 ──────────────────────────────────────────────
   createStub('vault', 'Vault', 2026, 'App', ['#181B21', '#282C34', '#3D434E'], {
     indexTagline: 'Personal finance dashboard',
     stack: 'Flutter \u00b7 Plaid',
@@ -68,7 +69,6 @@ const PROJECTS = [
     stack: 'Next.js \u00b7 Turborepo',
   }),
 
-  // ── 2025 ──────────────────────────────────────────────
   createStub('atlas', 'Atlas', 2025, 'Web', ['#0C0E12', '#282C34', '#5B626F'], {
     indexTagline: 'Interactive mapping platform',
     stack: 'Mapbox \u00b7 React',
@@ -86,7 +86,6 @@ const PROJECTS = [
     stack: 'Go \u00b7 gRPC',
   }),
 
-  // ── 2024 ──────────────────────────────────────────────
   {
     slug: 'ember',
     name: 'Ember',
@@ -189,7 +188,6 @@ const PROJECTS = [
     stack: 'Vue \u00b7 D3',
   }),
 
-  // ── 2023 ──────────────────────────────────────────────
   createStub('pip', 'Pip', 2023, 'Tool', ['#FAF0F0', '#E8C5C5', '#B83A3A'], {
     indexTagline: 'Discord moderation bot',
     stack: 'Node \u00b7 Discord API',
@@ -210,7 +208,6 @@ const PROJECTS = [
     stack: 'Kotlin \u00b7 Swift',
   }),
 
-  // ── 2022 ──────────────────────────────────────────────
   createStub('slab', 'Slab', 2022, 'Web', ['#0C0E12', '#181B21', '#282C34'], {
     indexTagline: 'Headless CMS for small teams',
     stack: 'Next.js \u00b7 Postgres',
@@ -225,7 +222,6 @@ const PROJECTS = [
     live: false,
   }),
 
-  // ── 2021 ──────────────────────────────────────────────
   createStub('nest', 'Nest', 2021, 'App', ['#282C34', '#181B21', '#B83A3A'], {
     indexTagline: 'Smart-home dashboard',
     stack: 'React Native \u00b7 MQTT',
@@ -236,7 +232,6 @@ const PROJECTS = [
     live: false,
   }),
 
-  // ── 2020 (founding year) ──────────────────────────────
   createStub('pixel', 'Pixel', 2020, 'Web', ['#282C34', '#3D434E', '#5B626F'], {
     indexTagline: 'Portfolio builder for creatives',
     stack: 'React \u00b7 Node',
@@ -249,36 +244,20 @@ const PROJECTS = [
   }),
 ];
 
-// Auto-assign prev/next navigation (circular)
-PROJECTS.forEach((p, i) => {
-  p.prev = PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length].slug;
-  p.next = PROJECTS[(i + 1) % PROJECTS.length].slug;
-});
-
 export default PROJECTS;
-
-export const FOUNDING_YEAR = 2020;
 
 export function getProject(slug) {
   return PROJECTS.find((p) => p.slug === slug) || null;
-}
-
-export function getCategory(kind) {
-  const k = kind.toLowerCase();
-  if (k === 'game') return 'Games';
-  if (k === 'app' || k === 'ios') return 'Apps';
-  if (k === 'web') return 'Web';
-  return 'Tools';
 }
 
 export const liveCount = PROJECTS.filter((p) => p.live).length;
 export const disciplineCount = new Set(PROJECTS.map((p) => getCategory(p.kind))).size;
 
 export function getAdjacent(slug) {
-  const project = getProject(slug);
-  if (!project) return { prev: null, next: null };
+  const index = PROJECTS.findIndex((p) => p.slug === slug);
+  if (index === -1) return { prev: null, next: null };
   return {
-    prev: project.prev ? getProject(project.prev) : null,
-    next: project.next ? getProject(project.next) : null,
+    prev: PROJECTS[(index - 1 + PROJECTS.length) % PROJECTS.length],
+    next: PROJECTS[(index + 1) % PROJECTS.length],
   };
 }

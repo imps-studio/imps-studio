@@ -28,7 +28,6 @@ export default function Footer() {
         </div>
       </Container>
 
-      {/* Horned-I mascot easter egg */}
       <a className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 opacity-70 hover:opacity-100 transition-opacity z-10 cursor-pointer" title="hi.">
         <img src={`${base}imps-mark-light.svg`} alt="IMPS" className="w-10 h-auto sm:w-12 block" />
       </a>

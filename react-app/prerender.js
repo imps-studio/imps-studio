@@ -8,36 +8,38 @@ async function prerender() {
   const distPath = path.resolve(__dirname, 'dist');
   const ssrPath = path.resolve(__dirname, 'dist-ssr', 'entry-server.js');
 
-  const { render, render404, PROJECTS } = await import(ssrPath);
+  const { render, render404, PROJECTS, formatTitle } = await import(ssrPath);
 
   const mainTemplate = fs.readFileSync(
     path.resolve(distPath, 'index.html'),
     'utf-8',
   );
 
-  // Main landing page
+  function withTitle(html, page) {
+    return html.replace(/<title>.*?<\/title>/, `<title>${formatTitle(page)}</title>`);
+  }
+
   const mainHtml = mainTemplate.replace('<!--app-html-->', render('/'));
   fs.writeFileSync(path.resolve(distPath, 'index.html'), mainHtml);
 
-  // Work index page
   const workDir = path.resolve(distPath, 'work');
   fs.mkdirSync(workDir, { recursive: true });
-  const workHtml = mainTemplate
-    .replace('<!--app-html-->', render('/work'))
-    .replace(/<title>.*?<\/title>/, '<title>Work \u2014 IMPS Studio</title>');
+  const workHtml = withTitle(
+    mainTemplate.replace('<!--app-html-->', render('/work')),
+    'Work',
+  );
   fs.writeFileSync(path.resolve(workDir, 'index.html'), workHtml);
 
-  // Project detail pages
   for (const project of PROJECTS) {
     const dir = path.resolve(distPath, 'work', project.slug);
     fs.mkdirSync(dir, { recursive: true });
-    const projectHtml = mainTemplate
-      .replace('<!--app-html-->', render(`/work/${project.slug}`))
-      .replace(/<title>.*?<\/title>/, `<title>${project.name} \u2014 IMPS Studio</title>`);
+    const projectHtml = withTitle(
+      mainTemplate.replace('<!--app-html-->', render(`/work/${project.slug}`)),
+      project.name,
+    );
     fs.writeFileSync(path.resolve(dir, 'index.html'), projectHtml);
   }
 
-  // 404 page
   const notFoundTemplate = fs.readFileSync(
     path.resolve(distPath, '404.html'),
     'utf-8',

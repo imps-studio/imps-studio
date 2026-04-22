@@ -45,7 +45,6 @@ export default function Work() {
             </Link>
           ))}
 
-          {/* & more */}
           <Link
             to="/work"
             aria-label="View all projects"
