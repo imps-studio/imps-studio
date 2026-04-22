@@ -8,7 +8,7 @@ async function prerender() {
   const distPath = path.resolve(__dirname, 'dist');
   const ssrPath = path.resolve(__dirname, 'dist-ssr', 'entry-server.js');
 
-  const { render, render404, PROJECTS, formatTitle } = await import(ssrPath);
+  const { render, PROJECTS, formatTitle } = await import(ssrPath);
 
   const mainTemplate = fs.readFileSync(
     path.resolve(distPath, 'index.html'),
@@ -40,11 +40,10 @@ async function prerender() {
     fs.writeFileSync(path.resolve(dir, 'index.html'), projectHtml);
   }
 
-  const notFoundTemplate = fs.readFileSync(
-    path.resolve(distPath, '404.html'),
-    'utf-8',
+  const notFoundHtml = withTitle(
+    mainTemplate.replace('<!--app-html-->', render('/404')),
+    '404',
   );
-  const notFoundHtml = notFoundTemplate.replace('<!--app-html-->', render404());
   fs.writeFileSync(path.resolve(distPath, '404.html'), notFoundHtml);
 
   console.log(`Pre-rendered index.html + ${PROJECTS.length} project pages + 404.html`);
