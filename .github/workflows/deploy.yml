@@ -32,7 +32,7 @@ jobs:
         env:
           # Set to "/" if deploying to <user>.github.io
           # Otherwise "/<repo-name>/"
-          VITE_BASE: /imps-software/
+          VITE_BASE: /imps-studio/
         run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

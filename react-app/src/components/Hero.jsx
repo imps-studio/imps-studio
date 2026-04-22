@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="py-10 sm:py-14 md:py-20">
       <Container>
         <div className="text-[10px] sm:text-[11px] text-imps-red tracking-[0.14em] mb-6 sm:mb-10">
-          &#9656; IMPS.SOFTWARE · v2026.1 · an independent studio
+          &#9656; IMPS.STUDIO · v2026.1 · an independent studio
         </div>
         <h1 className="font-sans font-extrabold text-white m-0 leading-[0.92] tracking-tightest break-words"
             style={{ fontSize: 'clamp(2rem, 9vw, 8rem)' }}>
