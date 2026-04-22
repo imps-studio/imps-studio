@@ -11,6 +11,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   .blink-cursor { animation: none; }
 }
 body { background: #0C0E12; color: #fff; -webkit-font-smoothing: antialiased; }
+a, button { cursor: pointer; }
 
 @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .status-dot { animation: pulse-dot 2s infinite; }
