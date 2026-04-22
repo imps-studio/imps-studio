@@ -12,7 +12,7 @@ export default function Nav() {
           <a className="hover:text-imps-red focus-visible:text-imps-red focus-visible:outline-none focus-visible:underline" href="#services">services</a>
           <a className="hover:text-imps-red focus-visible:text-imps-red focus-visible:outline-none focus-visible:underline" href="#work">work</a>
           <a className="hover:text-imps-red focus-visible:text-imps-red focus-visible:outline-none focus-visible:underline" href="#process">process</a>
-          <a className="hover:text-imps-red focus-visible:text-imps-red focus-visible:outline-none focus-visible:underline" href="#top">about</a>
+          <a className="hover:text-imps-red focus-visible:text-imps-red focus-visible:outline-none focus-visible:underline" href="#about">about</a>
         </nav>
         <div className="text-[#3F8F5F] text-[10px] sm:text-[12px] whitespace-nowrap">
           <span className="status-dot inline-block w-2 h-2 rounded-full bg-[#3F8F5F] mr-2 ring-4 ring-[#3F8F5F]/20 align-middle"></span>

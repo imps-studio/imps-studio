@@ -4,8 +4,13 @@
 
 html, body { margin: 0; padding: 0; overflow-x: hidden; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .breathe { animation: none; }
+  .blink-cursor { animation: none; }
+}
 body { background: #0C0E12; color: #fff; -webkit-font-smoothing: antialiased; }
+
 
 @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .status-dot { animation: pulse-dot 2s infinite; }
@@ -13,3 +18,23 @@ body { background: #0C0E12; color: #fff; -webkit-font-smoothing: antialiased; }
 /* Strike-through for "whatever" */
 .strike { position: relative; color: #5B626F; }
 .strike::after { content:""; position:absolute; left:-4%; right:-4%; top:52%; height:6px; background:#B83A3A; transform:rotate(-2deg); }
+
+/* 404 page — big numeral */
+.big-404 { font-size: clamp(5rem, 18vw, 14rem); }
+@media (max-width: 640px) {
+  .big-404 { font-size: clamp(4rem, 22vw, 7rem); }
+}
+
+/* 404 page — sleeping imp breathing */
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.01); }
+}
+.breathe { animation: breathe 4s ease-in-out infinite; }
+
+/* 404 page — blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.blink-cursor { animation: blink 1s steps(2) infinite; }

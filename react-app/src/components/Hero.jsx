@@ -2,7 +2,7 @@ import Container from './Container.jsx';
 
 export default function Hero() {
   return (
-    <section id="about" className="py-10 sm:py-14 md:py-20">
+    <section className="py-10 sm:py-14 md:py-20">
       <Container>
         <div className="text-[10px] sm:text-[11px] text-imps-red tracking-[0.14em] mb-6 sm:mb-10">
           &#9656; IMPS.STUDIO · v2026.1 · an independent studio
